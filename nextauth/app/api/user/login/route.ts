@@ -41,6 +41,8 @@ export async function POST(req: NextRequest) {
 
         const token = await jwt.sign(tokenData, Secerttoken!, { expiresIn: "1d" });
 
+
+
         const response = NextResponse.json({
             message: "Loqged in successfully",
             success: true,
