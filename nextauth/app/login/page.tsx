@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function SignIn() {
   const [data, setData] = useState({
@@ -31,13 +32,13 @@ export default function SignIn() {
       .post("/api/user/login", data)
       .then((res) => {
         console.log(res);
+        toast.success("Login successful");
       })
       .catch((err) => {
         console.log(err);
-        throw err;
+        toast.error("Login failed try again");
       });
 
-    console.log(respose);
     setIsLoading(false);
     setIsDisibleButton(true);
     router.push("/profile");
