@@ -27,15 +27,16 @@ export async function POST(req: NextRequest) {
 
         await user.save();
 
-        return NextResponse.json({
+        const response = NextResponse.json({
             message: "Email verified successfully",
             success: true
         })
 
+        console.log(response);
+
+        return response;
 
     } catch (error: any) {
         NextResponse.json({ error: error.message }, { status: 500 })
     }
-
-
 }

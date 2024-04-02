@@ -3,14 +3,10 @@ import { connectToDatabase } from "@/lib/mongoose";
 import { getDataFromToken } from "@/utils/getDataFromToken";
 import { NextRequest, NextResponse } from "next/server";
 
-
-
-
-
-
 export async function GET(request: NextRequest) {
 
     connectToDatabase();
+
 
     try {
         const userId = await getDataFromToken(request);
