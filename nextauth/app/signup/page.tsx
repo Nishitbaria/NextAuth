@@ -11,6 +11,8 @@ export default function Signup() {
     password: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [disibleButton, setIsDisibleButton] = useState(false);
   const router = useRouter();
 
   const handleChange = (e: any) => {
@@ -21,9 +23,11 @@ export default function Signup() {
     }));
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    axios
+    setIsLoading(true);
+    setIsDisibleButton(false);
+    const respose = await axios
       .post("http://localhost:3000/api/user/signup", data)
       .then((res) => {
         console.log(res);
@@ -32,6 +36,10 @@ export default function Signup() {
         console.log(err);
         throw err;
       });
+
+    console.log(respose);
+    setIsLoading(false);
+    setIsDisibleButton(true);
     router.push("/");
   };
 
@@ -130,10 +138,11 @@ export default function Signup() {
                 </div>
                 <button
                   onClick={handleSubmit}
+                  disabled={disibleButton}
                   type="submit"
                   className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
-                  Create an account
+                  {isLoading ? "Loading..." : "Sign up"}
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
